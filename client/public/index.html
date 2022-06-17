@@ -23,13 +23,13 @@
       <div id="root"></div>
       <section class="discussion">
         <h2>Discussion</h2>
-        <div class="add-comment">
+        <form class="add-comment" method="post">
           <span>
-            <img class="avatar" src="%PUBLIC_URL%/images/matt.jpg" alt="">
+            <img class="avatar" src="%PUBLIC_URL%/images/anonymous.png" alt="">
           </span>
-          <input type="text" placeholder="What are your thoughts?">
-          <button class="btn">Comment</button>
-        </div>
+          <input type="text" name="text" placeholder="What are your thoughts?">
+          <button class="btn" type="submit">Comment</button>
+        </form>
         <hr />
         <ul class="comments">
           <li>
