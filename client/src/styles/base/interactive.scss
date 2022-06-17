@@ -1,0 +1,97 @@
+/* Links
+   ========================================================================== */
+a,
+a:visited,
+.link {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--global-border-radius);
+  color: var(--c-secondary);
+  font-weight: 600;
+  overflow-wrap: break-word;
+  padding: 0;
+  transition: var(--animation-transition);
+
+  &:hover,
+  &:focus {
+    color: var(--c-secondary-dark);
+  }
+}
+
+nav ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+
+    a {
+      padding: 1rem;
+    }
+  }
+}
+
+/* Buttons
+   ========================================================================== */
+.btn,
+a.btn {
+  align-items: center;
+  background: var(--c-secondary);
+  border: 0;
+  border-radius: var(--global-border-radius);
+  color: var(--c-primary-bg);
+  display: inline-block;
+  font-size: 0.7333333333rem;
+  font-weight: bold;
+  height: auto;
+  line-height: 1.15;
+  overflow: hidden;
+  padding: 8px 12px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+
+  &:hover,
+  &:focus {
+    background: var(--c-secondary-dark);
+  }
+}
+
+
+/* Inputs
+   ========================================================================== */
+input:not([type="submit"]),
+select,
+textarea {
+  border: 1px solid var(--c-grey-light);
+  border-radius: var(--global-border-radius);
+  color: var(--c-primary);
+  font-size: 0.8666666666rem;
+  padding: 6px;
+  vertical-align: top;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--c-grey);
+    font-size: 0.7333333333rem;
+  }
+}
+
+/* Link and Button focus styles
+   ========================================================================== */
+
+:focus,
+a:focus,
+button:focus,
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus,
+[type="checkbox"]:focus + span:after,
+[type="radio"]:focus + span:after {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 4px;
+}

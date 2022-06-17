@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Ghost Code Challenge 2022 App Styles
+   ========================================================================== */
+
+/**
+ * Coding rules : https://github.com/necolas/idiomatic-css
+ *
+ * This app.scss file is intentionally left lean and is only used to import base
+ * variables, mixins, and prefixing in other stylesheets.
+ */
+
+/**
+ * Folder Structure
+ * -----------------
+ * abstract/
+ *    Variables, Mixins, and other reference-only abstractions that do not relate
+ *    to the structure and styling of the site.
+ *
+ * base/
+ *    Base rules are the defaults. They are almost exclusively single element
+ *    selectors but it could include attribute selectors, pseudo-class
+ *    selectors, child selectors or sibling selectors. Essentially, a base
+ *    style says that wherever this element is on the page, it should look
+ *    like _this_.
+ *
+ * layout/
+ *    Layout rules divide the page into sections. Layouts hold one or
+ *    more components together.
+ *
+ * component/
+ *    Component rules are specific to individual atomic pieces that comprise
+ *    layout sections
+ */
+
+/* Make sure the charset is set appropriately */
+@charset 'utf-8';
+
+/* Abstract
+   ========================================================================== */
+@use "./abstract/_settings.scss";
+@use "./abstract/normalize.scss";
+
+/* Base
+   ========================================================================== */
+@use "./base/base.scss";
+@use "./base/interactive.scss";
+// @use "./base/table";
+
+/* Layout
+========================================================================== */
+@use "./layout/footer.scss";
+@use "./layout/header.scss";
+@use "./layout/main.scss";
+
+
+/* Component
+========================================================================== */
+@use "./component/avatar.scss";
+@use "./component/add-comment.scss";
+@use "./component/comment.scss";
+@use "./component/comments.scss";

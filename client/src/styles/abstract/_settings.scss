@@ -1,0 +1,55 @@
+:root {
+  /* Colors Variables
+     ========================================================================== */
+  --c-primary: #21293C;
+  --c-primary-bg: #FFF;
+  --c-secondary: #7E34F6;
+  --c-secondary-dark: #4c0eaf;
+  --c-secondary-light: #a56dff;
+  --c-grey: #8A8F9C;
+  --c-grey-dark: #4B587C;
+  --c-grey-light: #E5E5E5;
+  --c-focus: var(--c-secondary-light);
+
+  /* Size Specific Variables
+     ========================================================================== */
+
+  /**
+    * BASE SIZING
+    *
+    * This default font size determines the relative size of special content in components and should be derived from
+    * the default paragraph font size
+    */
+  --global-font-size: 15px;
+  --global-lineheight: 1.5; /* 22.5px */
+  --global-scale-factor: 1.25; /* 4:5 - Major Third */
+
+  --global-font-size-mobile: 15px;
+  --global-lineheight-mobile: 1.5; /* 22.5px */
+  --global-scale-factor-mobile: 1.25; /* 4:5 - Major Third */
+
+  /* These are set to rem so it is relative to the global font size that changes depending on breakpoint */
+  --global-spacing: 1rem;
+  --global-spacing-double: 2rem;
+  --global-spacing-triple: 3rem;
+  --global-spacing-half: 0.5rem;
+  --global-spacing-quarter: 0.25rem;
+
+  --animation-transition: all 0.3s ease, font-size 0;
+  --global-border-radius: 4px;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../../fonts/Inter/Inter-Regular.ttf');
+}
+@font-face {
+  font-family: Inter;
+  src: url('../../fonts/Inter/Inter-SemiBold.ttf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: Inter;
+  src: url('../../fonts/Inter/Inter-Bold.ttf');
+  font-weight: bold;
+}

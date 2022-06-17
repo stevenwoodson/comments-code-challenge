@@ -1,13 +1,12 @@
 import './styles/app.scss';
 
+/*
 function App() {
   return (
     <div className="App">
-      <header></header>
-      <main></main>
-      <footer></footer>
     </div>
   );
 }
-
+*/
+function App() {}
 export default App;

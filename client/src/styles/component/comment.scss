@@ -1,0 +1,30 @@
+.comment {
+  font-size: 0.8666666666rem;
+
+  p {
+    margin: var(--global-spacing-quarter) 0 var(--global-spacing) 0;
+  }
+
+  .posted {
+    font-size: 0.7333333333rem;
+  }
+
+  .link {
+    color: var(--c-grey-dark);
+    font-size: 0.7333333333rem;
+    margin-right: var(--global-spacing-double);
+
+    &--upvote {
+      &:before {
+        content: '▲';
+        font-size: 8px;
+        margin-right: 7px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+  }
+}
