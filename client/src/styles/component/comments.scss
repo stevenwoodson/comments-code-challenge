@@ -1,6 +1,6 @@
 .comments {
   list-style: none;
-  margin: 0;
+  margin: var(--global-spacing-triple) 0;
   padding: 0;
 
   li {
@@ -10,7 +10,7 @@
 
   .avatar-container {
     display: block;
-    min-width: 30px;
+    min-width: 35px;
     margin-right: var(--global-spacing-half);
   }
 }
