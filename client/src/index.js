@@ -12,24 +12,34 @@ root.render(
 );
 
 
+/* ==========================================================================
+   Ghost Code Challenge V1 - all native JavaScript
+   ========================================================================== */
+
 /**
  * Returns a relative calendar string based on the provided timestamp
  *
  * @param {string} timestamp - SQL Timestamp
  * @returns
  */
-function getFormattedDate(timestamp) {
-  let commentPosted = DateTime.fromSQL(timestamp).toRelativeCalendar();
+const getFormattedDate = (timestamp) => {
+  let commentPosted = DateTime.fromISO(timestamp).toRelativeCalendar();
   if (commentPosted === 'today') {
-    commentPosted = DateTime.fromSQL(timestamp).toRelativeCalendar({ unit: "hours" });
+    commentPosted = DateTime.fromISO(timestamp).toRelativeCalendar({ unit: "hours" });
   }
   if (commentPosted === '1 hour ago') {
-    commentPosted = DateTime.fromSQL(timestamp).toRelativeCalendar({ unit: "minutes" });
+    commentPosted = DateTime.fromISO(timestamp).toRelativeCalendar({ unit: "minutes" });
   }
 
   return commentPosted;
 }
 
+/**
+ * Using the provided comment data, generate comment HTML to be added to the comment container
+ *
+ * @param {object} comment
+ * @returns
+ */
 const getFormattedCommentHTML = (comment) => (`
   <li>
     <span class="avatar-container">
@@ -43,10 +53,29 @@ const getFormattedCommentHTML = (comment) => (`
       </div>
       <p>${comment.text}</p>
       <div class="options">
-        <button class="link link--upvote">Upvote</button>
+        <button class="link link--upvote" data-id="${comment.id}">Upvote (${comment.upvotes})</button>
         <button class="link link--reply">Reply</button>
     </div>
-  </li>`)
+  </li>`);
+
+/**
+ * On Upvote click, trigger an API call
+ *
+ * @param {int} commentId
+ */
+
+ function onUpvote(e) {
+  fetch(process.env.REACT_APP_API_URL + "comments/" + this.dataset.id + '/upvote', {method: 'POST'})
+  .then(res => res.json())
+  .then(
+    (result) => {
+      this.innerHTML = `Upvote (${result})`
+    },
+    (error) => {
+      console.error(error);
+    }
+  )
+}
 
 
 /**
@@ -57,7 +86,6 @@ fetch(process.env.REACT_APP_API_URL + "comments")
   .then(res => res.json())
   .then(
     (result) => {
-      console.log(result);
       // Clear the comments container first
       commentsContainer.innerHTML = "";
 
@@ -65,8 +93,16 @@ fetch(process.env.REACT_APP_API_URL + "comments")
       result.forEach(comment => {
         commentsContainer.insertAdjacentHTML('beforeend', getFormattedCommentHTML(comment));
       });
+
+      // Add the upvote button click handlers
+      const upvoteLinks = commentsContainer.getElementsByClassName('link--upvote');
+      Array.from(upvoteLinks).forEach(link => {
+        link.addEventListener("click", onUpvote, false);
+      });
     },
     (error) => {
       console.error(error);
     }
   )
+
+
