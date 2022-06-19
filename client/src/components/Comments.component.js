@@ -3,7 +3,7 @@ import { CommentsContext } from "../state/CommentsContext";
 import Comment from './Comment.component';
 
 function Comments() {
-  const { state, dispatch } = React.useContext(CommentsContext);
+  const { state, dispatch, socket } = React.useContext(CommentsContext);
 
   useEffect(() => {
     dispatch({
@@ -13,24 +13,15 @@ function Comments() {
 
   useEffect(() => {
     if (state.isFetching) {
-      fetch(process.env.REACT_APP_API_URL + "comments")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            dispatch({
-              type: "FETCH_COMMENTS_SUCCESS",
-              payload: result
-            });
-          },
-          (error) => {
-            console.error(error);
-            dispatch({
-              type: "FETCH_COMMENTS_FAILURE"
-            });
-          }
-        )
-      }
-  }, [dispatch, state.isFetching])
+      socket.emit('comments:get');
+      socket.on('comments', function (data) {
+        dispatch({
+          type: "FETCH_COMMENTS_SUCCESS",
+          payload: data
+        });
+      });
+    }
+  }, [dispatch, socket, state.isFetching])
 
   if (state.hasError) {
     return <div className="comments">We're sorry, there was an error loading comments.</div>;

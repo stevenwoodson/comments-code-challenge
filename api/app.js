@@ -1,24 +1,34 @@
 require("dotenv").config();
 
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var cors = require("cors");
-var logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const cors = require("cors");
+const { createServer } = require("http");
+const express = require('express');
+const logger = require('morgan');
+const { Server } = require("socket.io");
 
-var indexRouter = require('./routes/index');
-var commentsRouter = require('./routes/comments');
-
-var app = express();
+const app = express();
 
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/comments', commentsRouter);
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  serveClient: false,
+  cors: {
+    origin: "http://localhost:3000"
+  }
+});
+
+const commentsSocket = require("./socket");
+const onConnection = (socket) => {
+  commentsSocket(io, socket);
+}
+io.on("connection", onConnection);
+httpServer.listen(3002);
 
 module.exports = app;

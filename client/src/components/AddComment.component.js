@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CommentsContext } from "../state/CommentsContext";
 
 function AddComment() {
-  const { state, dispatch } = React.useContext(CommentsContext);
+  const { state, socket } = React.useContext(CommentsContext);
   const [ formData, setFormData ] = useState({
     'name': (state.commenterOptions[Math.floor(Math.random() * state.commenterOptions.length)]),
     'text': ''
@@ -19,27 +19,13 @@ function AddComment() {
   function handleSubmit(e){
     e.preventDefault() // stops default reloading behaviour
 
-    fetch(process.env.REACT_APP_API_URL + "comments",{
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: new Headers({'Content-Type': 'application/json'})
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        setFormData({
-          ...formData,
-          'text': '',
-        });
-
-        dispatch({
-          type: "FETCH_COMMENTS_REQUEST"
-        });
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+    socket.emit('comment:post', formData, (response) => {
+      socket.emit('comments:get');
+      setFormData({
+        ...formData,
+        'text': '',
+      });
+    });
   }
 
   return (

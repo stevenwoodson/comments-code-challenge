@@ -1,5 +1,5 @@
 import React from 'react';
-import {CommentsContext, initialState, reducer} from './state/CommentsContext'
+import {CommentsContext, initialState, reducer, socket} from './state/CommentsContext'
 import AddComment from './components/AddComment.component';
 import Comments from './components/Comments.component';
 import './styles/app.scss';
@@ -11,7 +11,8 @@ function App() {
     <CommentsContext.Provider
       value={{
         state,
-        dispatch
+        dispatch,
+        socket
       }}
     >
       <AddComment commenterOptions></AddComment>

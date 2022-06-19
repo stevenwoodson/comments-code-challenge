@@ -1,5 +1,7 @@
 import React from 'react';
+import { io } from 'socket.io-client';
 
+export const socket = io(process.env.REACT_APP_SOCKET_URL);
 export const CommentsContext = React.createContext();
 
 export const initialState = {
@@ -22,24 +24,6 @@ export const reducer = (state, action) => {
         ...state,
         isFetching: false,
         comments: action.payload
-      };
-    case "FETCH_COMMENTS_FAILURE":
-      return {
-        ...state,
-        hasError: true,
-        isFetching: false
-      };
-    case "UPDATE_COMMENT_UPVOTES":
-      const commentsUpdate = state.comments.map((comment) => {
-        if (comment.id === action.payload.id) {
-          comment.upvotes = action.payload.upvotes;
-        }
-        return comment;
-      });
-
-      return {
-        ...state,
-        comments: commentsUpdate
       };
 
     default:

@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import { CommentsContext } from "../state/CommentsContext";
 
 function Comment(props) {
-  const { state, dispatch } = React.useContext(CommentsContext);
+  const { state, socket } = React.useContext(CommentsContext);
 
   /**
    * Returns a relative calendar string based on the provided timestamp
@@ -32,20 +32,9 @@ function Comment(props) {
    * @param {int} commentId
    */
   function onUpvote(id) {
-    fetch(process.env.REACT_APP_API_URL + "comments/" + id + '/upvote', {method: 'POST'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          dispatch({
-            type: "UPDATE_COMMENT_UPVOTES",
-            payload: {'id': id, 'upvotes': result}
-          });
-
-        },
-        (error) => {
-          console.error(error);
-        }
-      )
+    socket.emit('comment:upvote', {'commentId': id}, (response) => {
+      socket.emit('comments:get');
+    });
   }
 
   return (
