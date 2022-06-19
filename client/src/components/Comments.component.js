@@ -15,6 +15,7 @@ function Comments() {
     if (state.isFetching) {
       socket.emit('comments:get');
       socket.on('comments', function (data) {
+        console.log('comments', data)
         dispatch({
           type: "FETCH_COMMENTS_SUCCESS",
           payload: data
@@ -31,7 +32,7 @@ function Comments() {
     return (
       <ul className="comments">
         {state.comments.map((comment, index) => (
-          <Comment key={comment.id} commentData={comment}></Comment>
+          <Comment key={comment.id} commentData={comment} canReply={true}></Comment>
         ))
         }
      </ul>

@@ -3,7 +3,11 @@
   display: flex;
   gap: var(--global-spacing-half);
   justify-content: space-between;
-  margin: var(--global-spacing-triple) 0;
+  margin: var(--global-spacing) 0;
+
+  &--new {
+    margin: var(--global-spacing-triple) 0;
+  }
 
   & > * {
     flex:auto;

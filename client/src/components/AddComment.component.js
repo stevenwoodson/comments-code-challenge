@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { CommentsContext } from "../state/CommentsContext";
 
-function AddComment() {
+function AddComment(props) {
   const { state, socket } = React.useContext(CommentsContext);
   const [ formData, setFormData ] = useState({
-    'name': (state.commenterOptions[Math.floor(Math.random() * state.commenterOptions.length)]),
-    'text': ''
+    'name': state.commenter,
+    'text': '',
+    'reply_to_id': (props.commentId ? props.commentId : null)
   });
 
   const handleChange = event => {

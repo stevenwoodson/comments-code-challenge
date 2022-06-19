@@ -4,9 +4,12 @@ import { io } from 'socket.io-client';
 export const socket = io(process.env.REACT_APP_SOCKET_URL);
 export const CommentsContext = React.createContext();
 
+const commenterOptions = ['Hannah', 'Kevin', 'Matt', 'Naz'];
+
 export const initialState = {
   comments: [],
-  commenterOptions: ['Hannah', 'Kevin', 'Matt', 'Naz'],
+  commenterOptions: commenterOptions,
+  commenter: (commenterOptions[Math.floor(Math.random() * commenterOptions.length)]),
   isFetching: false,
   hasError: false,
 };

@@ -5,17 +5,26 @@ module.exports = (io, socket) => {
   const commentsGet = function () {
     connection.query('SELECT * FROM comments ORDER BY id DESC', (error, results, fields) => {
       if (error) throw error
+
+      const comments = results.filter(comment => comment.reply_to_id === null);
+
+      comments.map((comment, index) => {
+        const replies = results.filter(reply => reply.reply_to_id === comment.id);
+        if (replies.length > 0) {
+          comment['replies'] = replies;
+        }
+      });
       // Send comments on the socket
-      io.emit('comments', results);
+      io.emit('comments', comments);
     });
   };
 
   const commentPost = function (payload, callback) {
     connection.query(
       {
-        sql: 'INSERT INTO comments (`name`, `text`, `posted`) VALUES (?, ?, ?)',
+        sql: 'INSERT INTO comments (`name`, `text`, `reply_to_id`, `posted`) VALUES (?, ?, ?, ?)',
       },
-      [payload.name ? payload.name : 'anonymous', payload.text, DateTime.now().toISO()],
+      [payload.name ? payload.name : 'anonymous', payload.text, payload.reply_to_id, DateTime.now().toISO()],
       function (error, results, fields) {
         if (error) throw error;
         callback({

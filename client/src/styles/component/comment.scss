@@ -1,8 +1,27 @@
 .comment {
   font-size: 0.8666666666rem;
+  position: relative;
+
+  &--replies:before {
+    border-left: 2px solid var(--c-grey-light);
+    content: "";
+    height: 100%;
+    left: 14px;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &__contents {
+    display: flex;
+    margin: var(--global-spacing-double) 0;
+  }
 
   p {
     margin-top: var(--global-spacing-quarter);
+  }
+
+  .comment-container {
+    flex-grow: 1;
   }
 
   .posted {
