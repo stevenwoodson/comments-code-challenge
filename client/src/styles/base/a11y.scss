@@ -1,0 +1,37 @@
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.sr-only-focusable {
+  &:active,
+  &:focus {
+    clip: auto;
+    height: auto;
+    line-height: 1.2;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+  }
+}
+
+/* Link and Button focus styles
+   ========================================================================== */
+:focus,
+a:focus,
+button:focus,
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus,
+[type="checkbox"]:focus + span:after,
+[type="radio"]:focus + span:after {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 4px;
+}

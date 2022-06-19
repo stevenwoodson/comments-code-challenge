@@ -49,7 +49,7 @@ h3,
 h4,
 p {
   line-height: var(--global-lineheight);
-  margin: 0;
+  margin: 0 0 var(--global-spacing) 0;
 }
 
 hr {
