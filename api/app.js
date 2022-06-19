@@ -20,7 +20,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   serveClient: false,
   cors: {
-    origin: "http://localhost:3000"
+    origin: process.env["CLIENT_URL"],
   }
 });
 
@@ -29,6 +29,6 @@ const onConnection = (socket) => {
   commentsSocket(io, socket);
 }
 io.on("connection", onConnection);
-httpServer.listen(3002);
+httpServer.listen( process.env["SOCKET_PORT"]);
 
 module.exports = app;
